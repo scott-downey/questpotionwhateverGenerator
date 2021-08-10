@@ -1,0 +1,4 @@
+this is a minimal example_calledFile|10
+the number behind the vertical line is optional
+if you have no vertical line weight 100 is assumed
+lets call another file at the end_end|200
