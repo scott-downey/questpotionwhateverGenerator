@@ -4,11 +4,13 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Load files and generate adventure!')
 parser.add_argument('-l','--list', nargs='+', help='File pools', required=True)
+parser.add_argument('-n','--number', type=int, help='Number of times a random entry should be created', default=1)
+parser.add_argument('-s','--subfolder', help='Is used when the files are in a subfolder', default="")
 args = parser.parse_args()
 
 
 def loadFile(filename): # loads a file and makes a random choice
-    with open("src/"+filename) as file_in:
+    with open("src/"+args.subfolder+filename) as file_in:
         lines = []
         line_weight = []
         for rawline in file_in:
@@ -44,7 +46,8 @@ def doEntireList(fileList): # does the entire list and adds one by one
         print(getRListElement(elem))
 
 def main():
-    doEntireList(args.list)
+    for number in range(args.number):
+        doEntireList(args.list)
 
 if __name__ == "__main__":
     main()
