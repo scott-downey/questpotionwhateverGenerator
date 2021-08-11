@@ -7,7 +7,7 @@ parser.add_argument('-l','--list', nargs='+', help='File pools', required=True)
 args = parser.parse_args()
 
 
-def loadFile(filename):
+def loadFile(filename): # loads a file and makes a random choice
     with open("src/"+filename) as file_in:
         lines = []
         line_weight = []
@@ -22,8 +22,8 @@ def loadFile(filename):
                 line_weight.append(int(splitted[1]))
     return random.choices(population=lines,weights=line_weight)[0]
 
-def evaluate(elem, functionBound):
-    if(len(functionBound)>1):
+def evaluate(elem, functionBound): # evaluates and creates string formating
+    if(len(functionBound)>1): # is a function there? '_'
         return ("{:<7} : {:<10} - {}".format(elem,functionBound[0],doEntireListAsOne(functionBound[1:])))  
     else:
         return ("{:<7} : {:<10}".format(elem, functionBound[0]))
@@ -33,13 +33,13 @@ def getRListElement(elem):
     functionBound = result.split("_")
     return evaluate(elem, functionBound)
 
-def doEntireListAsOne(fileList):
+def doEntireListAsOne(fileList): # does the entire list and creates the string in one line
     result = []
     for elem in fileList:
         result.append(getRListElement(elem))
     return " ".join(result)
 
-def doEntireList(fileList):
+def doEntireList(fileList): # does the entire list and adds one by one
     for elem in fileList:
         print(getRListElement(elem))
 
