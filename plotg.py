@@ -5,9 +5,10 @@ import re
 import os.path
 
 parser = argparse.ArgumentParser(description='Load files and generate adventure!')
-parser.add_argument('-l','--list', nargs='+', help='File pools', required=True)
-parser.add_argument('-n','--number', type=int, help='Number of times a random entry should be created', default=1)
-parser.add_argument('-s','--subfolder', help='Is used when the files are in a subfolder', default="")
+parser.add_argument('-l','--list', nargs='+', help="""Takes a list of files. From those files random entries are selected. If no subfolder is specified the program
+will search 'src' and if it doesn't find said file there it will look in 'general'""", required=True)
+parser.add_argument('-n','--number', type=int, help="""Takes a number. Executes the program 'number' times.""", default=1)
+parser.add_argument('-s','--subfolder', help='Takes subfolder. This allows you to specify a subfolder in src.', default="")
 args = parser.parse_args()
 
 def bold(str):
@@ -51,11 +52,13 @@ def loadFile(filename): # loads a file and makes a random choice
     filepath = "src/"+args.subfolder+filename
     if(not os.path.exists(filepath)):
         filepath = ("src/general/"+filename)
+    if(not os.path.exists(filepath)):
+        raise ValueError("Neither general nor {} has {} in it.".format(args.subfolder, filename))
     with open(filepath) as file_in:
         lines = []
         line_weight = []
         for rawline in file_in:
-            line = findToParse(rawline.rstrip("\n"))
+            line = findToParse(rawline.rstrip("\n").strip(" "))
             splitted = line.split("|")
             if(len(splitted) == 1):
                 lines.append(splitted[0])
