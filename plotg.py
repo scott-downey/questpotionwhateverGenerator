@@ -46,7 +46,7 @@ def parse(text):
     #raise ValueError("Brackets are for die roll only {2d6+2} for example is k {hans} is not.")
 
 def findToParse(text):
-    return re.sub(r"\{(.*?)\}", lambda match: "{0}".format(parse(match.group(1))), text)
+    return re.sub(r"\{(.*?)\}|([0-9])+[dD]([0-9])+", lambda match: "{0}".format(parse(match.group().strip("{}"))), text)
 
 def loadFile(filename): # loads a file and makes a random choice
     filepath = "src/"+args.subfolder+filename
