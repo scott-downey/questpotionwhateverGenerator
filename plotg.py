@@ -2,7 +2,8 @@
 import random
 import argparse
 import re
-import os.path
+import os
+import sys
 
 parser = argparse.ArgumentParser(description='Load files and generate adventure!')
 parser.add_argument('-l','--list', nargs='+', help="""Takes a list of files. From those files random entries are selected. If no subfolder is specified the program
@@ -10,7 +11,7 @@ will search 'src' and if it doesn't find said file there it will look in 'genera
 parser.add_argument('-n','--number', type=int, help="""Takes a number. Executes the program 'number' times.""", default=1)
 parser.add_argument('-s','--subfolder', help='Takes subfolder. This allows you to specify a subfolder in src.', default="")
 args = parser.parse_args()
-
+general_path = "src/general/"
 def bold(str):
     return "\033[1m" + str + "\033[0m"
 
@@ -43,7 +44,6 @@ def parse(text):
         return parseDie(text)
     else:
         return getRListElement(text)
-    #raise ValueError("Brackets are for die roll only {2d6+2} for example is k {hans} is not.")
 
 def findToParse(text):
     return re.sub(r"\{(.*?)\}|([0-9])+[dD]([0-9])+", lambda match: "{0}".format(parse(match.group().strip("{}"))), text)
@@ -51,9 +51,12 @@ def findToParse(text):
 def loadFile(filename): # loads a file and makes a random choice
     filepath = "src/"+args.subfolder+filename
     if(not os.path.exists(filepath)):
-        filepath = ("src/general/"+filename)
+        filepath = (general_path+filename)
     if(not os.path.exists(filepath)):
-        raise ValueError("Neither general nor {} has {} in it.".format(args.subfolder, filename))
+        print("general", os.listdir(general_path))
+        print("src/"+args.subfolder, os.listdir("src/"+args.subfolder))
+        print("Neither general nor {} has {} in it.".format(args.subfolder, filename))
+        sys.exit(0)
     with open(filepath) as file_in:
         lines = []
         line_weight = []
