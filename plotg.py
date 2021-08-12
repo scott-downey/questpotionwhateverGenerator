@@ -2,6 +2,7 @@
 import random
 import argparse
 import re
+import os.path
 
 parser = argparse.ArgumentParser(description='Load files and generate adventure!')
 parser.add_argument('-l','--list', nargs='+', help='File pools', required=True)
@@ -47,7 +48,10 @@ def findToParse(text):
     return re.sub(r"\{(.*?)\}", lambda match: "{0}".format(parse(match.group(1))), text)
 
 def loadFile(filename): # loads a file and makes a random choice
-    with open("src/"+args.subfolder+filename) as file_in:
+    filepath = "src/"+args.subfolder+filename
+    if(not os.path.exists(filepath)):
+        filepath = ("src/general/"+filename)
+    with open(filepath) as file_in:
         lines = []
         line_weight = []
         for rawline in file_in:
