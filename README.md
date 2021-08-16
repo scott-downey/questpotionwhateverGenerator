@@ -1,11 +1,17 @@
 # questpotionwhateverGenerator
 Generates Whatever you want at (weighted) random. This allows you to create random tables with ease!
 
-## Folder structure
+
+## clean.py - Preparation
+When creating files from online tables often you have some leading spaces, some enumerations, duplicates or some awful tabbing going on. Clean will remove: Leading numbers, dots and dashes. Leading and trailing spaces. And will move tabbed content into newlines.
+
+## plotg.py - The Main Program
+
+### Folder structure
 Every random table has to be in the src folder. You can have subfolders (see "How to call the program"). You also can have a "src/general" folder which is searched whenever no match is found in the folder selected by the function call. This means you can define a "anmial" file containing 100s of animals in your "src/general" folder ("src/general/animal") and then call it in all your projects as long as you don't have a "animal" file in your project ("src/yourprojectname/animal"). This might sound harder than it actually is ;)
 
 
-## How to get started
+### How to get started
 Rename src_dummy to src to have something to try out. Try out this function call while being in the folder "questpotionwhateverGenerator/":
 * Linux: `./plotg.py -l minimal_example`
 * Windows: `python plotg.py -l minimal_example`
@@ -22,7 +28,7 @@ If this works you've just got your first random string! Let's make some other ca
 
 You should now understand and be comfortable with executing the program in simple ways, but let's understand a little bit more, shall we?
 
-## How to call the program
+### How to call the program
 The program is named `plotg.py`. There are three arguments:
 
 * `-l` or `--list` Takes a list of files. From those files random entries are selected. If no subfolder is specified the program
@@ -34,7 +40,7 @@ A function call can use all of those command line arguments. `plotg.py -l File -
 
 Now you should know why the commands above are working and by checking the folder structure you can ensure that everything worked as it should. For examining the folder structure the inbuild command `tree` can be very helpful (but please don't call it if there are many sub^n folders ;)
 
-## How to write src-files
+### How to write src-files
 First things first: Files must not start with a number. Apart from that you are pretty free. I heavily encourage you to keep all your files in separat folders to make working with them more enjoyable. If you have large tables that you will use in many projects, just move them into the "general/" folder.
 
 * `_` This will call the file behind underline (and therefore select a random element in that file) after printing the text before the underline. Example: `SomeQuest_SomeFile`: SomeQuest will be printed and then the random element from the called file.
@@ -42,5 +48,5 @@ First things first: Files must not start with a number. Apart from that you are 
 * `{SOME_TEXT}` is what we will call an intext-call: Allows you to get a random value from another file within your text. Example: `The King {action} and after that he {action}, but suddenly {event}.`
 * `{XdY+Z}` or `{XdY-Z}` is what we will call an intext-roll: Allows you to get a die roll within your text. Example: `After {1d3} minutes {1d6+2} giant scorpions appeared and killed {20d20} people in {1d6-4} seconds!`. The roll can be negative if `Z` is larger than the roll.
 
-## Some last words
-I am excited to see what people have made from my little program! Please share your tables - if able (don't break/bend copyrights) - so everyone can enjoy them!
+### Some last words
+I am excited to see what people will make with my little program! Please share your tables - if able (don't break/bend copyrights) - so everyone can enjoy them!
