@@ -1,10 +1,6 @@
 # questpotionwhateverGenerator
 Generates Whatever you want at (weighted) random. This allows you to create random tables with ease!
 
-
-## clean.py - Preparation
-When creating files from online tables often you have some leading spaces, some enumerations, duplicates or some awful tabbing going on. Clean will remove: Leading numbers, dots and dashes. Leading and trailing spaces. And will move tabbed content into newlines.
-
 ## plotg.py - The Main Program
 
 ### Folder structure
@@ -48,5 +44,14 @@ First things first: Files must not start with a number. Apart from that you are 
 * `{SOME_TEXT}` is what we will call an intext-call: Allows you to get a random value from another file within your text. Example: `The King {action} and after that he {action}, but suddenly {event}.`
 * `{XdY+Z}` or `{XdY-Z}` is what we will call an intext-roll: Allows you to get a die roll within your text. Example: `After {1d3} minutes {1d6+2} giant scorpions appeared and killed {20d20} people in {1d6-4} seconds!`. The roll can be negative if `Z` is larger than the roll.
 
+
+## clean.py - Preparation
+When creating files from online tables often you have some leading spaces, some enumerations, duplicates or some awful tabbing going on. Clean will remove: Leading numbers, dots and dashes. Leading and trailing spaces. And will move tabbed content into newlines. Note: Be aware that the usage of this help-program is not always helpful. Maybe the text starts with: "2d6 witches appear!"... you really don't want to lose said 2 or do you? Therefore be careful when using it and make sure to use the right flags (which mostly are not implemented yet):
+* `-s` keeps spaces (trailing and leading)
+* `-e` keeps leading numbers, dots and dashes (DONE!)
+* `-t` keeps tabs
+* `-d` keeps duplicates
+
+
 ### Some last words
-I am excited to see what people will make with my little program! Please share your tables - if able (don't break/bend copyrights) - so everyone can enjoy them!
+I am excited to see what people will create with my little program! Please share your tables - if able (don't break/bend copyrights) - so everyone can enjoy them!
