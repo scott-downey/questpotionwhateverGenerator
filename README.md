@@ -9,12 +9,12 @@ Every random table has to be in the src folder. You can have subfolders (see "Ho
 
 ### How to get started
 Rename src_dummy to src to have something to try out. Try out this function call while being in the folder "questpotionwhateverGenerator/":
-* Linux: `./plotg.py -l minimal_example`
-* Windows: `python plotg.py -l minimal_example`
+* Linux: `./plotg.py -l minimalExample`
+* Windows: `python plotg.py -l minimalExample`
 Result similar to: ``
 
 If this works you've just got your first random string! Let's make some other calls! (I will no longer mention the operating system's specifics)
-* `plotg.py -l minimal_example -n 10`
+* `plotg.py -l minimalExample -n 10`
 * `plotg.py -l end -n 6`
 * `plotg.py -l Anfang -s exampleHTKN/` From here we are using german examples, but you should understand what's happening nonetheless
 * `plotg.py -l Anfang Anfang -s exampleHTKN/` Yes, this is just like `plotg.py -l Anfang -s exampleHTKN/ -n 2`
