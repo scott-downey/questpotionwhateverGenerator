@@ -52,6 +52,7 @@ When creating files from online tables often you have some leading spaces, some 
 * `-e` keeps leading numbers, dots and dashes (DONE!)
 * `-t` keeps tabs
 * `-d` keeps duplicates
+* `-s` keeps syntax that can be misinterpreted
 
 
 ### Some last words
