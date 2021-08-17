@@ -10,7 +10,7 @@ parser.add_argument('-l','--list', nargs='+', help="""Takes a list of files. Fro
 will search 'src' and if it doesn't find said file there it will look in 'general'""", required=True)
 parser.add_argument('-n','--number', type=int, help="""Takes a number. Executes the program 'number' times.""", default=1)
 parser.add_argument('-s','--subfolder', help='Takes subfolder. This allows you to specify a subfolder in src.', default="")
-parser.add_argument('-m','--matchSimilar', help='Allows the program to match all files starting with list-item text.', action='store_true', default=False)
+parser.add_argument('-m','--matchStarting', help='Allows the program to match all files starting with list-item text.', action='store_true', default=False)
 args = parser.parse_args()
 general_path = "src/general/"
 def bold(str):
@@ -97,7 +97,7 @@ def doEntireListAsOne(fileList): # does the entire list and creates the string i
 
 def doEntireList(fileList): # does the entire list and adds one by one
     for elem in fileList:
-        if(args.matchSimilar):
+        if(args.matchStarting):
             matches = [loadFile(file) for dirpath, dirnames, filenames in os.walk("src/"+args.subfolder) for file in filenames if file.lower().startswith(elem.lower())]
             if(matches):
                 print('\n'.join(matches))
