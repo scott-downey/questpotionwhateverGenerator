@@ -10,6 +10,7 @@ parser.add_argument('-l','--list', nargs='+', help="""Takes a list of files. Fro
 will search 'src' and if it doesn't find said file there it will look in 'general'""", required=True)
 parser.add_argument('-n','--number', type=int, help="""Takes a number. Executes the program 'number' times.""", default=1)
 parser.add_argument('-s','--subfolder', help='Takes subfolder. This allows you to specify a subfolder in src.', default="")
+parser.add_argument('-m','--matchSimilar', help='Allows the program to match all files starting with list-item text.', action='store_true', default=False)
 args = parser.parse_args()
 general_path = "src/general/"
 def bold(str):
@@ -36,7 +37,7 @@ def parseDie(text):
                 modificator+=int(elem)
             text = arguments[0]
     if(text[0].isdigit()):
-        values = text.split("d")
+        values = text.lower().split("d")
         return rollDie(values[0],values[1], modificator)
 
 def parse(text):
@@ -48,15 +49,20 @@ def parse(text):
 def findToParse(text):
     return re.sub(r"\{(.*?)\}|([0-9])+[dD]([0-9])+", lambda match: "{0}".format(parse(match.group().strip("{}"))), text)
 
+def printError(filename):
+    print(bold("general"))
+    print('\n'.join([elem for elem in os.listdir(general_path) if args.list[0].lower() in elem.lower()]))
+    print(bold("src/"+args.subfolder))
+    print('\n'.join([elem for elem in os.listdir("src/"+args.subfolder) if args.list[0].lower() in elem.lower()]))
+    print("\nNeither general nor {} matched with {}. Partial matches with first list entry are shown above".format(args.subfolder, filename))
+    sys.exit(0)
+
 def loadFile(filename): # loads a file and makes a random choice
     filepath = "src/"+args.subfolder+filename
     if(not os.path.exists(filepath)):
         filepath = (general_path+filename)
     if(not os.path.exists(filepath)):
-        print("general", os.listdir(general_path))
-        print("src/"+args.subfolder, os.listdir("src/"+args.subfolder))
-        print("Neither general nor {} has {} in it.".format(args.subfolder, filename))
-        sys.exit(0)
+        printError(filename)
     with open(filepath) as file_in:
         lines = []
         line_weight = []
@@ -78,6 +84,7 @@ def evaluate(elem, functionBound): # evaluates and creates string formating
         return functionBound[0]
 
 def getRListElement(elem):
+    result=""
     result = loadFile(elem)
     functionBound = result.split("_")
     return evaluate(elem, functionBound)
@@ -90,7 +97,14 @@ def doEntireListAsOne(fileList): # does the entire list and creates the string i
 
 def doEntireList(fileList): # does the entire list and adds one by one
     for elem in fileList:
-        print(getRListElement(elem))
+        if(args.matchSimilar):
+            matches = [loadFile(file) for dirpath, dirnames, filenames in os.walk("src/"+args.subfolder) for file in filenames if file.lower().startswith(elem.lower())]
+            if(matches):
+                print('\n'.join(matches))
+            else:
+                printError(elem)
+        else:
+            print(getRListElement(elem))
 
 def main():
     for number in range(args.number):
