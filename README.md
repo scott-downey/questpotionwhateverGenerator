@@ -31,6 +31,7 @@ The program is named `plotg.py`. There are three arguments:
 will search 'src' and if it doesn't find said file there it will look in 'general'.
 * `-n` or `--number` Takes a number. Executes the program 'number' times. Very helpful if you would like to choose from different random possibilities to make it more fitting to the current situation. Default value is 1.
 * `-s` or `--subfolder` Takes subfolder. This allows you to specify a subfolder in src. For example `subfolder/` or `subfolder/subsubfolder/`
+* `-m` or `-matchStarting` Instead of looking for one file exactly matching the `--list` entries, all files will be now called starting with the `--list` entries.
 
 A function call can use all of those command line arguments. `plotg.py -l File -n 42 -s SubFolder` therefore is a valid call (as long as you really have said File and Subdfolder (don't lie man, the program will know).
 
@@ -46,7 +47,7 @@ First things first: Files must not start with a number. Apart from that you are 
 
 
 ## clean.py - Preparation
-When creating files from online tables often you have some leading spaces, some enumerations, duplicates or some awful tabbing going on. Clean will remove: Leading numbers, dots and dashes. Leading and trailing spaces. And will move tabbed content into newlines. Note: Be aware that the usage of this help-program is not always helpful. Maybe the text starts with: "2d6 witches appear!"... you really don't want to lose said 2 or do you? Therefore be careful when using it and make sure to use the right flags (which mostly are not implemented yet):
+When creating files from online tables often you have some leading spaces, some enumerations, duplicates or some awful tabbing going on. Clean will remove: Leading numbers, dots and dashes. Leading and trailing spaces. And will move tabbed content into newlines. Note: Be aware that the usage of this help-program is not always helpful. Maybe the text starts with: "2d6 witches appear!"... you really don't want to lose said 2 or do you? Therefore be careful when using it and make sure to use the right flags (which mostly are not implemented yet). Please also be very careful not to use the wrong path :) the program can't know whether files you feed him are random tables or your very important homework:
 * `-s` keeps spaces (trailing and leading)
 * `-e` keeps leading numbers, dots and dashes (DONE!)
 * `-t` keeps tabs
