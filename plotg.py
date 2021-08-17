@@ -7,7 +7,7 @@ import sys
 
 parser = argparse.ArgumentParser(description='Load files and generate adventure!')
 parser.add_argument('-l','--list', nargs='+', help="""Takes a list of files. From those files random entries are selected. If no subfolder is specified the program
-will search 'src' and if it doesn't find said file there it will look in 'general'""", required=True)
+will search 'src' and if it doesn't find said file there it will look in 'general'""")
 parser.add_argument('-n','--number', type=int, help="""Takes a number. Executes the program 'number' times.""", default=1)
 parser.add_argument('-s','--subfolder', help='Takes subfolder. This allows you to specify a subfolder in src.', default="")
 parser.add_argument('-m','--matchStarting', help='Allows the program to match all files starting with list-item text.', action='store_true', default=False)
@@ -51,11 +51,19 @@ def findToParse(text):
 
 def printError(filename):
     print(bold("general"))
-    print('\n'.join([elem for elem in os.listdir(general_path) if args.list[0].lower() in elem.lower()]))
+    print('\n'.join(sorted([elem for elem in os.listdir(general_path) if args.list[0].lower() in elem.lower()], key=str.lower)))
+    print("")
     print(bold("src/"+args.subfolder))
-    print('\n'.join([elem for elem in os.listdir("src/"+args.subfolder) if args.list[0].lower() in elem.lower()]))
+    print('\n'.join(sorted([elem for elem in os.listdir("src/"+args.subfolder) if args.list[0].lower() in elem.lower()], key=str.lower)))
     print("\nNeither general nor {} matched with {}. Partial matches with first list entry are shown above".format(args.subfolder, filename))
     sys.exit(0)
+
+def printAll():
+    print(bold("general"))
+    print('\n'.join(sorted(os.listdir(general_path), key=str.lower)))
+    print("")
+    print(bold("src/"+args.subfolder))
+    print('\n'.join(sorted(os.listdir("src/"+args.subfolder), key=str.lower)))
 
 def loadFile(filename): # loads a file and makes a random choice
     filepath = "src/"+args.subfolder+filename
@@ -107,8 +115,11 @@ def doEntireList(fileList): # does the entire list and adds one by one
             print(getRListElement(elem))
 
 def main():
-    for number in range(args.number):
-        doEntireList(args.list)
+    if(args.list):
+        for number in range(args.number):
+            doEntireList(args.list)
+    else:
+        printAll()
 
 if __name__ == "__main__":
     main()
