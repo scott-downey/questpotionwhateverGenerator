@@ -28,7 +28,10 @@ def main():
                         newlist = [word.lstrip('0123456789.-').strip(' \n') for line in file_in for word in line.split("\t")]
                 with open(os.path.join(path, name),'w') as file_in:
                     file_in.write("\n".join(set(newlist)))
-    print("Done! {} rewritten 'nd ready to go!".format(len(files)))
+            print("Done! {} rewritten 'nd ready to go!".format(len(files)))
+        else:
+            print("As you wish..")
+    print("Thanks for putting your trust in my services - your cheerful cleaner.")
 
 if __name__ == "__main__":
     main()
