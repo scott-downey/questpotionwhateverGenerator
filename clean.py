@@ -6,7 +6,7 @@ import os
 import sys
 
 parser = argparse.ArgumentParser(description='Load files from folder and prepares them for plotg.py!')
-parser.add_argument('-f','--folder', help='The folder from which all files are taken recursively (this means: It will access subfolders!)', required=True)
+parser.add_argument('-f','--folder', help='The !whole path! to the folder from which all files are taken recursively (this means: It will access subfolders!)', required=True)
 #parser.add_argument('-s','--keepSpaces', help='Keeps trailing and leading spaces', action='store_true')
 parser.add_argument('-e','--keepEnumeration', help='Keeps leading 0123456789.-', action='store_true')
 #parser.add_argument('-s','--keepSyntax', help='Keeps syntax that can be misinterpreted by plotg [\{,\},|]', action='store_true')
