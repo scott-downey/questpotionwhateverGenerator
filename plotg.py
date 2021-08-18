@@ -115,6 +115,8 @@ def doEntireList(fileList): # does the entire list and adds one by one
             print(getRListElement(elem))
 
 def main():
+    if(args.subfolder and not args.subfolder.endswith("/")):
+        args.subfolder=args.subfolder+"/"
     if(args.list):
         for number in range(args.number):
             doEntireList(args.list)
